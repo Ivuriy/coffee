@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+			integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+			crossorigin="anonymous"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
+		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;700&display=swap"
+			rel="stylesheet"
+		/>
+		<title>Кофейный аппарат</title>
+		<style>
+			body {
+				font-family: "Fira Sans", sans-serif;
+				background: url(/img/coffeeFon.jpg);
+			}
+			.coffee-block {
+				border: 1px solid black;
+				background-color: rgb(32, 202, 199);
+				margin-bottom: 10px;
+				border-radius: 2px;
+			}
+			.coffee-block span {
+				line-height: 70px;
+				vertical-align: middle;
+				font-size: 1.5rem;
+				font-weight: 700;
+				padding-left: 0.5rem;
+			}
+			.coffee-btn {
+				height: 0;
+				width: 0;
+				border-top: 35px solid transparent;
+				border-left: 70px solid rgb(87, 226, 22);
+				border-bottom: 35px solid transparent;
+				cursor: pointer;
+			}
+			.coffee-btn:hover {
+				height: 0;
+				width: 0;
+				border-top: 35px solid transparent;
+				border-left: 70px solid rgb(65, 167, 17);
+				border-bottom: 35px solid transparent;
+			}
+			#display {
+				width: 100%;
+				height: 230px;
+				background-color: rgba(73, 215, 212, 0.65);
+				border: 2px dotted black;
+				color: whitesmoke;
+				padding: 0.6rem;
+				text-align: center;
+			}
+			img[src$="rub.jpg"]:hover {
+				filter: contrast(150%);
+				cursor: pointer;
+			}
+			.animated {
+				animation-name: hide-bill;
+				animation-duration: 0.25s;
+				animation-timing-function: ease;
+			}
+			@keyframes hide-bill {
+				0% {
+					transform: rotate(-90deg) rotateY(1deg);
+					opacity: 1;
+				}
+				100% {
+					transform: rotate(-90deg) rotateY(70deg);
+					opacity: 0;
+				}
+			}
+			.progress-bar {
+				background-color: rgb(87, 226, 22);
+			}
+			.progress {
+				height: 1.5rem;
+			}
+			.bi {
+				font-size: 1.2rem;
+				color: rgb(158, 238, 121);
+			}
+			#changeBox {
+				width: 100%;
+				height: 200px;
+				position: relative;
+				background-color: rgba(98, 95, 95, 0.6);
+				margin-top: 30px;
+				border: 1px solid rgb(121, 120, 120);
+			}
+			img[src$="rub.png"] {
+				width: 65px;
+				position: absolute;
+			}
+			.coin-hover {
+            position: absolute;
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 75px;
+            font-size: 32px;
+            transition: .25s;
+            font-family: consolas;
+            background-color: royalblue;
+            }
+
+            .coin-hover:hover {
+            box-shadow: 0 0 24px 8px rgba(208, 92, 92, 1),
+            inset 0 0 24px 8px rgba(208, 92, 92, 1);
+}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="row my-5">
+				<div class="col-md-6">
+					<div class="row coffee-block">
+						<div class="coffee-btn" onclick="getCoffee(78, 'Раф')"></div>
+						<span>Раф - 78 р.</span>
+					</div>
+					<div class="row coffee-block">
+						<div class="coffee-btn" onclick="getCoffee(82, 'Эспрессо')"></div>
+						<span>Эспрессо - 82 р.</span>
+					</div>
+					<div class="row coffee-block">
+						<div class="coffee-btn" onclick="getCoffee(114, 'Мокачино')"></div>
+						<span>Мокачино - 114 р.</span>
+					</div>
+					<div class="row coffee-block">
+						<div class="coffee-btn" onclick="getCoffee(126, 'Латте')"></div>
+						<span>Латте - 126 р.</span>
+					</div>
+					<div class="row coffee-block">
+						<div class="coffee-btn" onclick="getCoffee(93, 'Мокка')"></div>
+						<span>Мокка - 93 р.</span>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="row">
+						<div class="col-md-6">
+							<div id="display">
+								<p id="displayInfo">Внесите деньги</p>
+								<p id="balance"><i class="bi bi-piggy-bank"></i> Баланс: 0 руб.</p>
+								<div class="progress" hidden>
+									<div
+										class="progress-bar progress-bar-striped progress-bar-animated"
+										role="progressbar"
+									></div>
+								</div>
+							</div>
+							<div class="d-flex justify-content-center">
+								<button onclick="getChange(money.value)" class="btn btn-info btn-lg mt-5">
+									Получить сдачу -->
+								</button>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<input type="hidden" id="money" />
+							<img src="/img/bill_acc.jpg" alt="" />
+							<div id="changeBox"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<img src="/img/50rub.jpg" alt="" id="test" data-bill-value="50" />
+			<img src="/img/100rub.jpg" alt="" data-bill-value="100" />
+			<img src="/img/500rub.jpg" alt="" data-bill-value="500" />
+		</div>
+		<script>
+			let test = document.getElementById("test");
+			let money = document.getElementById("money");
+			let displayInfo = document.getElementById("displayInfo");
+			let bills = document.querySelectorAll("img[src$='rub.jpg']");
+			let bill_acc = document.querySelector("img[src$='bill_acc.jpg']");
+			let balance = document.getElementById("balance");
+			let changeBox = document.getElementById("changeBox");
+
+			for (bill of bills) {
+				bill.onmousedown = function (e) {
+					bill = e.currentTarget;
+					bill.style.position = "absolute";
+					bill.style.zIndex = 100;
+					bill.style.transform = "rotate(90deg)";
+
+					document.addEventListener("mousemove", moveElement);
+
+					bill.onmouseup = function () {
+						bill.style.zIndex = 1;
+						document.removeEventListener("mousemove", moveElement);
+						//Координаты купюры
+						let bill_top = bill.getBoundingClientRect().top;
+						let bill_left = bill.getBoundingClientRect().left;
+						let bill_right = bill.getBoundingClientRect().right;
+						//Координаты купюроприемника
+						let bill_acc_top = bill_acc.getBoundingClientRect().top;
+						let bill_acc_left = bill_acc.getBoundingClientRect().left;
+						let bill_acc_right = bill_acc.getBoundingClientRect().right;
+						let bill_acc_bottom =
+							bill_acc.getBoundingClientRect().bottom -
+							(bill_acc.getBoundingClientRect().height / 3) * 2;
+
+						if (
+							bill_top > bill_acc_top &&
+							bill_left > bill_acc_left &&
+							bill_right < bill_acc_right &&
+							bill_top < bill_acc_bottom
+						) {
+							bill.classList.add("animated");
+							setTimeout(function () {
+								bill.hidden = true;
+							}, 245);
+							//Зачисляем деньги
+							money.value = +money.value + +bill.dataset.billValue;
+							balance.innerHTML = `<i class="bi bi-piggy-bank"></i> Баланс: ${money.value} руб.`;
+						}
+					};
+
+					function moveElement(event) {
+						let x = event.clientX - 150;
+						let y = event.clientY - 65;
+						bill.style.top = y + "px";
+						bill.style.left = x + "px";
+					}
+				};
+
+				bill.ondragstart = function () {
+					return false;
+				};
+			}
+
+			function getCoffee(price, name) {
+				if (money.value >= price) {
+					money.value = money.value - price;
+					balance.innerHTML = `<i class="bi bi-piggy-bank"></i> Баланс: ${money.value} руб.`;
+					startProgressBar(name);
+				} else {
+					displayInfo.innerHTML = `<i class="bi bi-emoji-frown"></i> На ${name} не хватает денег.`;
+				}
+			}
+
+			function startProgressBar(coffeeName) {
+				let i = 0;
+				displayInfo.innerHTML = `<i class="bi bi-stopwatch"></i> ${coffeeName} готовится...`;
+				function progress() {
+					let progressBar = document.querySelector(".progress-bar");
+					progressBar.parentElement.hidden = false;
+					i++;
+					progressBar.style.width = i + "%";
+
+					if (i == 100) {
+						clearInterval(timerId);
+						progressBar.parentElement.hidden = true;
+						displayInfo.innerHTML = `<i class="bi bi-cup-hot"></i> Ваш ${coffeeName} готов!`;
+					} else if (i == 45) {
+						displayInfo.innerHTML = `<i class="bi bi-stopwatch"></i> ${coffeeName} почти готов.`;
+					}
+				}
+				let timerId = setInterval(progress, 100);
+			}
+
+			function getChange(num) {
+				let coin;
+				let top = getRandom(1, changeBox.getBoundingClientRect().height - 68);
+				let left = getRandom(1, changeBox.getBoundingClientRect().width - 68);
+				if (num >= 10) coin = 10;
+				else if (num >= 5) coin = 5;
+				else if (num >= 2) coin = 2;
+				else if (num >= 1) coin = 1;
+				console.log(coin);
+
+				changeBox.innerHTML += `<img src="/img/${coin}rub.png" style="top:${top}px; left:${left}px" onclick="removeCoin(this)" class="coin-hover">${coin}>`;
+
+				if (num - coin !== 0) {
+					getChange(num - coin);
+				} else {
+					if( money.value = "null"){
+				    balance.innerHTML = 0;
+                }
+				}
+	            
+			}
+			function getRandom(min, max) {
+				return Math.random() * (max - min) + min;
+			}
+            
+			function removeCoin(elem) {
+            elem.remove();
+            }
+
+
+			// function oldGetChange(num) {
+			// 	if (num >= 10) {
+			// 		console.log(10);
+			// 		oldGetChange(num - 10);
+			// 	} else if (num >= 5) {
+			// 		console.log(5);
+			// 		oldGetChange(num - 5);
+			// 	} else if (num >= 2) {
+			// 		console.log(2);
+			// 		oldGetChange(num - 2);
+			// 	} else if (num >= 1) {
+			// 		console.log(1);
+			// 		oldGetChange(num - 1);
+			// 	} else {
+			// 		console.log("Вся сдача выдана!");
+			// 	}
+			// }
+			// Так лучше не писать
+			// function ternGetChange(num) {
+			// 	let coin = num >= 10 ? 10 : num >= 5 ? 5 : num >= 2 ? 2 : num >= 1 ? 1 : "Вся сдача выдана";
+			// 	console.log(coin);
+			// 	if (num - coin !== 0) {
+			// 		ternGetChange(num - coin);
+			// 	}
+			// }
+			// bills.forEach(function(num) {
+			// 	num.onmousedown = function() {
+			// 	console.log("Произошло событие onmousedown");
+			// }
+			// })
+			// for (let i = 0; i < bills.length; i++) {
+			// 	bills[i].onmousedown = function() {
+			// 		console.log("Произошло событие onmousedown");
+			// 	}
+			// }
+		</script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+			integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+			crossorigin="anonymous"
+		></script>
+	</body>
+</html>
